@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "462241505021",
+    "firebase_url": "https://spr-pcr-395410-default-rtdb.firebaseio.com",
+    "project_id": "spr-pcr-395410",
+    "storage_bucket": "spr-pcr-395410.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462241505021:android:d2d43c983f5ab62dc62894",
+        "android_client_info": {
+          "package_name": "com.example.aplikasipeminjamanruangan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462241505021-tjl5cioraak329df6rq8omibo2diebjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Suwzt265S5rwg_2mcNxuPcGxbAh5d-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462241505021-tjl5cioraak329df6rq8omibo2diebjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
