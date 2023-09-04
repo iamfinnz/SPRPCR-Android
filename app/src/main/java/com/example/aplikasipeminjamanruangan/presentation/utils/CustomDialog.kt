@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.TimerOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -117,7 +118,7 @@ fun CustomDialog(
                                 .height(30.dp)
                                 .width(30.dp))
                         Spacer(Modifier.weight(1f))
-                        Text(text = tanggalValue.ifEmpty { "pilih" },
+                        Text(text = tanggalValue.ifEmpty { "Cari tanggal" },
                             color = if (tanggalValue.isEmpty()) Color.LightGray else textColor,
                             modifier = Modifier.clickable { calendarState.show() })
                     }
@@ -135,42 +136,40 @@ fun CustomDialog(
                                 .width(30.dp)
                         )
                         Spacer(Modifier.weight(1f))
-                        Text(text = jMulaiValue.ifEmpty { "pilih" },
+                        Text(text = jMulaiValue.ifEmpty { "Jam mulai" },
                             color = if (jMulaiValue.isEmpty()) Color.LightGray else textColor,
                             modifier = Modifier.clickable { beginClockState.show() })
-                        Icon(imageVector = Icons.Filled.ExpandMore,
-                            contentDescription = null,
-                            tint = textColor,
-                            modifier = Modifier.clickable { beginClockState.show() })
-
-                        Text(text = jSelesaiValue.ifEmpty { "pilih" },
-                            color = if (jSelesaiValue.isEmpty()) Color.LightGray else textColor,
-                            modifier = Modifier.clickable { endClockState.show() })
-                        Icon(imageVector = Icons.Filled.ExpandMore,
-                            contentDescription = null,
-                            tint = textColor,
-                            modifier = Modifier.clickable { endClockState.show() })
-                    }
-//                    Row(
-//                        modifier = Modifier.fillMaxWidth(),
-//                        horizontalArrangement = Arrangement.SpaceBetween
-//                    ) {
-//                        Icon(imageVector = Icons.Filled.TimerOff,
+//                        Icon(imageVector = Icons.Filled.ExpandMore,
+//                            contentDescription = null,
+//                            tint = textColor,
+//                            modifier = Modifier.clickable { beginClockState.show() })
+//
+//                        Text(text = jSelesaiValue.ifEmpty { "pilih" },
+//                            color = if (jSelesaiValue.isEmpty()) Color.LightGray else textColor,
+//                            modifier = Modifier.clickable { endClockState.show() })
+//                        Icon(imageVector = Icons.Filled.ExpandMore,
 //                            contentDescription = null,
 //                            tint = textColor,
 //                            modifier = Modifier.clickable { endClockState.show() })
-//                        Text(
-//                            text = "Selesai",
-//                            fontWeight = FontWeight.Bold,
-//                            color = textColor, modifier = Modifier.padding(start = 8.dp)
-//                        )
-//                        Spacer(Modifier.weight(1f))
-//                        Text(
-//                            text = jSelesaiValue.ifEmpty { "tekan disini" },
-//                            color = if (jSelesaiValue.isEmpty()) Color.LightGray else textColor,
-//                            modifier = Modifier.clickable { endClockState.show() }
-//                        )
-//                    }
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Icon(imageVector = Icons.Filled.TimerOff,
+                            contentDescription = null,
+                            tint = textColor,
+                            modifier = Modifier
+                                .height(30.dp)
+                                .width(30.dp))
+                        Spacer(Modifier.weight(1f)
+                        )
+                        Text(
+                            text = jSelesaiValue.ifEmpty { "Jam selesai" },
+                            color = if (jSelesaiValue.isEmpty()) Color.LightGray else textColor,
+                            modifier = Modifier.clickable { endClockState.show() }
+                        )
+                    }
                     Divider()
                 }
                 Row(

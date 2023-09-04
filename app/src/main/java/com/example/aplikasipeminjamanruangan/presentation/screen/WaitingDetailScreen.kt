@@ -357,77 +357,202 @@ fun BottomSection(data: PengajuanModel) {
         }
 
         LaunchedEffect(Unit) {
-            if (!data.pengajuanDiterima) Toast.makeText(
-                context, "Tidak dapat download Bukti !\nPengajuan Belum diterima", Toast.LENGTH_LONG
+            if (data.pengajuanDiterima == "Belum Diterima") Toast.makeText(
+                context, "Pengajuan belum diterima !\nTidak dapat download Bukti", Toast.LENGTH_LONG
             ).show()
-            if(data.pengembalianDiterima)Toast.makeText(
-                context, "Proses Peminjaman telah selesai", Toast.LENGTH_LONG
+            if (data.pengajuanDiterima == "Diterima") Toast.makeText(
+                context, "Pengajuan sudah diterima !\nSilahkan download Bukti", Toast.LENGTH_LONG
+            ).show()
+            if (data.pengajuanDiterima == "Ditolak") Toast.makeText(
+                context, "Pengajuan anda ditolak !\nSilahkan download Bukti", Toast.LENGTH_LONG
+            ).show()
+            if(data.pengembalianDiterima == "Diterima")Toast.makeText(
+                context, "Proses peminjaman telah selesai", Toast.LENGTH_LONG
             ).show()
         }
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "Peminjam", style = MaterialTheme.typography.h2, color = textColor)
-            Text(
-                text = "${data.nama}", color = textColor
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Nim", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = "${data.nim}", color = textColor)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Ruangan", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = "${data.ruangan}", color = textColor)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Tanggal", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = "${data.tanggal}", color = textColor)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Mulai - Selesai", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = "${data.jmulai} - ${data.jselesai}", color = textColor)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Keperluan", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = if (data.keperluan!!.isEmpty()) "-" else data.keperluan, color = textColor)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Unit", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = "${data.unit}", color = textColor)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Penanggung Jawab", style = MaterialTheme.typography.h2, color = textColor)
-            Text(text = "${data.penanggungJawab}", color = textColor)
-            Spacer(modifier = Modifier.height(18.dp))
-            Button(
-                onClick = {
+            if (data.pengajuanDiterima == "Ditolak") {
+                Text(text = "Status Peminjaman", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.pengajuanDiterima}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Peminjam", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.nama}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "NIM", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.nim}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Ruangan", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.ruangan}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Tanggal", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.tanggal}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "Mulai - Selesai",
+                    style = MaterialTheme.typography.h2,
+                    color = textColor
+                )
+                Text(text = "${data.jmulai} - ${data.jselesai}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Unit", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.unit}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "Penanggung Jawab",
+                    style = MaterialTheme.typography.h2,
+                    color = textColor
+                )
+                Text(text = "${data.penanggungJawab}", color = textColor)
+                Text(text = "Keperluan", style = MaterialTheme.typography.h2, color = textColor)
+                Text(
+                    text = if (data.keperluan!!.isEmpty()) "-" else data.keperluan,
+                    color = textColor
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+                Button(
+                    onClick = {
+                        downloadPdf = true
+                    },
+                    border = BorderStroke(1.dp, Color.White),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp),
+                    shape = RoundedCornerShape(50),
+                    colors = ButtonDefaults.buttonColors(
+                        disabledBackgroundColor = Color.LightGray,
+                        backgroundColor = MaterialTheme.colors.secondary
+                    ),
+                    enabled = data.pengajuanDiterima == "Ditolak"
+                ) {
+                    Row(horizontalArrangement = Arrangement.SpaceAround) {
+                        Icon(
+                            imageVector = Icons.Default.Download,
+                            contentDescription = "Download Bukti Peminjaman",
+                            tint = if (data.pengajuanDiterima == "Ditolak") textColor else Color.White
+                        )
+                        Text(
+                            "Download Bukti Peminjaman",
+                            color = if (data.pengajuanDiterima == "Ditolak") textColor else Color.White,
+                            style = MaterialTheme.typography.body1
+                        )
+                    }
+                }
+            } else if (data.pengembalianDiterima == "Diterima"){
+                Text(text = "Status Peminjaman", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "Selesai", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Peminjam", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.nama}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "NIM", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.nim}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Ruangan", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.ruangan}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Tanggal", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.tanggal}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "Mulai - Selesai",
+                    style = MaterialTheme.typography.h2,
+                    color = textColor
+                )
+                Text(text = "${data.jmulai} - ${data.jselesai}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Unit", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.unit}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "Penanggung Jawab",
+                    style = MaterialTheme.typography.h2,
+                    color = textColor
+                )
+                Text(text = "${data.penanggungJawab}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Keperluan", style = MaterialTheme.typography.h2, color = textColor)
+                Text(
+                    text = if (data.keperluan!!.isEmpty()) "-" else data.keperluan,
+                    color = textColor
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            } else {
+                Text(text = "Status Peminjaman", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.pengajuanDiterima}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Peminjam", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.nama}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "NIM", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.nim}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Ruangan", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.ruangan}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Tanggal", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.tanggal}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "Mulai - Selesai",
+                    style = MaterialTheme.typography.h2,
+                    color = textColor
+                )
+                Text(text = "${data.jmulai} - ${data.jselesai}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Unit", style = MaterialTheme.typography.h2, color = textColor)
+                Text(text = "${data.unit}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "Penanggung Jawab",
+                    style = MaterialTheme.typography.h2,
+                    color = textColor
+                )
+                Text(text = "${data.penanggungJawab}", color = textColor)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = "Keperluan", style = MaterialTheme.typography.h2, color = textColor)
+                Text(
+                    text = if (data.keperluan!!.isEmpty()) "-" else data.keperluan,
+                    color = textColor
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+                Button(
+                    onClick = {
 //                    readAndWritePermissionResultLauncher.launch(
 //                        permissionToRequest
 //                    )
 //                    writePermissionResultLauncher.launch(
 //                        Manifest.permission.WRITE_EXTERNAL_STORAGE
 //                    )
-                    //generatePDF3(context)
-                    downloadPdf = true
-                },
-                border = BorderStroke(1.dp, Color.White),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp),
-                shape = RoundedCornerShape(50),
-                colors = ButtonDefaults.buttonColors(
-                    disabledBackgroundColor = Color.LightGray,
-                    backgroundColor = MaterialTheme.colors.secondary
-                ),
-                enabled = data.pengajuanDiterima
-            ) {
-                Row(horizontalArrangement = Arrangement.SpaceAround) {
-                    Icon(
-                        imageVector = Icons.Default.Download,
-                        contentDescription = "Download Bukti Pembayaran",
-                        tint = if (data.pengajuanDiterima) textColor else Color.White
-                    )
-                    Text(
-                        "Download Bukti Peminjaman",
-                        color = if (data.pengajuanDiterima) textColor else Color.White,
-                        style = MaterialTheme.typography.body1
-                    )
-                }
+                        //generatePDF3(context)
+                        downloadPdf = true
+                    },
+                    border = BorderStroke(1.dp, Color.White),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp),
+                    shape = RoundedCornerShape(50),
+                    colors = ButtonDefaults.buttonColors(
+                        disabledBackgroundColor = Color.LightGray,
+                        backgroundColor = MaterialTheme.colors.secondary
+                    ),
+                    enabled = data.pengajuanDiterima == "Diterima"
+                ) {
+                    Row(horizontalArrangement = Arrangement.SpaceAround) {
+                        Icon(
+                            imageVector = Icons.Default.Download,
+                            contentDescription = "Download Bukti Peminjaman",
+                            tint = if (data.pengajuanDiterima == "Diterima") textColor else Color.White
+                        )
+                        Text(
+                            "Download Bukti Peminjaman",
+                            color = if (data.pengajuanDiterima == "Diterima") textColor else Color.White,
+                            style = MaterialTheme.typography.body1
+                        )
+                    }
 
+                }
             }
         }
     }

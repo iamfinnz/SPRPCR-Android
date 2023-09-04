@@ -124,7 +124,7 @@ fun NoDataAvailableLottie(isSplashScreenStart: Boolean) {
         )
         Text(
             color = textColor,
-            text = "No data Available",
+            text = "Tidak ada data",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )

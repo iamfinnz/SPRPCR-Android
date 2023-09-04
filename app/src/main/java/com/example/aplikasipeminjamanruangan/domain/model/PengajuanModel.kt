@@ -12,10 +12,11 @@ data class PengajuanModel(
     val prodi: String? = null,
     val ruangan: String? = null,
     val tanggal: String? = null,
-    val pengajuanDiterima: Boolean = false,
-    val pengembalianDiterima: Boolean = false,
+    val pengajuanDiterima: String? = "Belum Diterima",
+    val pengembalianDiterima: String? = "Belum Dikembalikan",
     val keperluan: String? = null,
     val unit: String? = null,
     val penanggungJawab: String? = null,
+    val catatan: String? = null,
     val fotoRuangan: String? = null
 ) : Parcelable

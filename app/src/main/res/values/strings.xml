@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">AplikasiPeminjamanRuangan</string>
-    <string name="splash_text">Lending App</string>
-    <string name="splash_caption">Simplify your task with OCR</string>
+    <string name="app_name">SPR PCR</string>
 </resources>

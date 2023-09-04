@@ -190,14 +190,17 @@ fun generatePDF2(context: Context) {
 fun generatePDF(context: Context, data: PengajuanModel) {
     val dataPengajuan = mapOf(
         "Peminjam" to data.nama,
-        "Nim" to data.nim,
+        "NIM" to data.nim,
+        "Program Studi" to data.prodi,
         "Ruangan" to data.ruangan,
         "Tanggal" to data.tanggal,
         "Jam Mulai" to data.jmulai,
         "Jam Selesai" to data.jselesai,
-        "Keperluan" to data.keperluan,
         "Unit" to data.unit,
-        "Penanggung Jawab" to data.penanggungJawab
+        "Penanggung Jawab" to data.penanggungJawab,
+        "Keperluan" to data.keperluan,
+        "Status" to data.pengajuanDiterima,
+        "Catatan" to data.catatan
     )
     val document = PdfDocument()
     val pageHeight = 1120
@@ -217,7 +220,7 @@ fun generatePDF(context: Context, data: PengajuanModel) {
             paint = paint,
             canvas = canvas,
             color = Color.BLACK,
-            text = "Bukti Peminjaman Ruangan",
+            text = "Bukti Peminjaman Ruangan PCR",
             textSize = 28f,
             typeFace = Typeface.create(Typeface.DEFAULT, Typeface.BOLD),
             xPos = 180f,
